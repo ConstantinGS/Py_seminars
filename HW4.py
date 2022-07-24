@@ -1,5 +1,5 @@
 
-
+import random 
 
 # Вычислить число c заданной точностью d
 
@@ -28,26 +28,69 @@ def ex1_pi(d):
 
 def ex2_div(N):
     list_div = []
-    for i in range(2,N):
+    for i in range(2,N//2+1):
         if N%i==0:
             list_div.append(i)
 
-    print (list_div)
-
-    for n in list_div:
-        print(n)
-        for x in range(2,n):
-            # print(n/x)
-            if n/x!=n//x:
-                list_div.remove(n)
+    for j in list_div[:]:
+    
+        for k in range(2,j):
+            if (j%k) == 0:
+                list_div.remove(j)
                 break
-
+     
     print (list_div)
 
-ex2_div(100)
+# ex2_div(98)
 
 
 
+# Задайте последовательность чисел. 
+# Напишите программу, которая выведет список неповторяющихся элементов исходной последовательности.
+
+
+def ex3_nonrepeat(list_numbers):
+
+    list_number_new = []
+    for i in list_numbers:
+        if i not in list_number_new:
+            list_number_new.append(i)
+    print (list_number_new)
+
+# l_num = [3, 5, 16, 789, 5, 35, 1, 5, 10, 789]
+# ex3_nonrepeat(l_num)
+
+
+
+
+
+# Задана натуральная степень k. 
+# Сформировать случайным образом список коэффициентов (значения от 0 до 100) многочлена и вывести на экран.
+
+# Пример:
+
+# - k=2 => 2*x² + 4*x + 5 = 0 или x² + 5 = 0 или 10*x² = 0
+
+
+def ex4_degree(k):
+    list_ratio = []
+    
+    polinom = ""
+    for i in range(k):
+        list_ratio.append(random.randint(0,100)) 
+
+    print(list_ratio)
+
+
+    for j in range(len(list_ratio)-1, 1, -1):
+        polinom += f"{list_ratio[j]}*x^{j} + "
+    
+    print(polinom)
+
+
+
+
+ex4_degree(4)
 
 
 
