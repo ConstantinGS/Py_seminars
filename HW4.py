@@ -74,17 +74,39 @@ def ex3_nonrepeat(list_numbers):
 
 def ex4_degree(k):
     list_ratio = []
+    degrees = {0: "\u2070", 1: "\u00B9", 2: "\u00B2",
+    3: "\u00B3", 4: "\u2074", 5: "\u2075",
+    6: "\u2076", 7: "\u2077", 8: "\u2078",
+    9: "\u2079" }
+
+    
     
     polinom = ""
-    for i in range(k):
-        list_ratio.append(random.randint(0,100)) 
+    # polinom += f"{random.randint(1,100)}x{degrees[k]} "
 
-    print(list_ratio)
+    # for i in range(k-1,1,-1):
+    #     polinom += f"{random.randint(0,100)}x{degrees[i]} "
+
+    list_ratio.append(random.randint(1,100))
+
+    for i in range(k-1):
+        list_ratio.append(random.randint(0,100))
+
+    for j in range(k):
+        if random.randint(0,1)==0:
+            list_ratio[j] *= -1
+
+    for z in range(len(list_ratio),0,-1):
+        polinom += f"{list_ratio[z-1]}x{degrees[z]} "
 
 
-    for j in range(len(list_ratio)-1, 1, -1):
-        polinom += f"{list_ratio[j]}*x^{j} + "
+
+
+
+
+
     
+    print(list_ratio)
     print(polinom)
 
 
