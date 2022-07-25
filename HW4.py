@@ -130,7 +130,6 @@ def ad_ex():
     print(string1)
     print(string2)
 
-    merker1 = 0
     count = 0
     for i in range(0,len(string1)):
         if string1[i] == "=" : break
@@ -148,19 +147,21 @@ def ad_ex():
     for j in digits_1st:
         value = ""
         number = ""
+        merker1 = 0 
         for k in range(len(j)):
-            if j[k]== " " or j[k]== "" : continue
-            if j[k]!= "*" and j[k]!= "x" and j[k]!= "^"  and not merker1:
-                value += j[k]
+            if j[k]== " " or j[k]== "" or j[k]== "x" or j[k]== "*" : 
+                merker1 = 0 
+                continue
             elif j[k] == "^": merker1
             elif merker1: number += j[k]
+            elif not merker1:
+                value += j[k]
+            
+            
+            
+            
 
-        for q in number:
-            if i not in symbols:
-                value.replace(q, "")
-        for w in value:
-            if i not in symbols:
-                number.replace(w, "")
+      
 
         print(value)
         print(number)
