@@ -1,4 +1,5 @@
 
+from fileinput import close
 from msvcrt import kbhit
 import random 
 
@@ -102,7 +103,60 @@ def ex4_degree(k):
 
     print(f"{polinom} = 0")
 
-ex4_degree(2)
+# ex4_degree(2)
+
+
+# 35(Доп). Даны два файла, в каждом из которых находится запись многочлена. 
+# Задача - сформировать файл, содержащий сумму многочленов.
+
+
+def ad_ex():
+
+    digits_1st = [""]
+    digits_2nd = []
+    digits_sum = []
+
+
+
+
+    pol_File1 = open("Py_seminars\HW4_File_1.txt", "r")
+    string1 = pol_File1.read()
+    pol_File1.close
+    pol_File2 = open("Py_seminars\HW4_File_2.txt", "r")
+    string2 = pol_File2.read()
+    pol_File1.close
+
+    print(string1)
+    print(string2)
+
+    merker1 = 0
+    count = 0
+    for i in range(0,len(string1)):
+        if string1[i] == "=" : break
+        if string1[i] == "+" or string1[i] == " ":
+            digits_1st.append("")
+            count += 1
+        else:
+            digits_1st[count] += string1[i]
+
+    print (digits_1st)
+
+    # for j in digits_1st:
+    #     for k in range(len(j)):
+            
+
+        
+
+
+        
+
+
+
+
+
+
+ad_ex()
+
 
 
 
