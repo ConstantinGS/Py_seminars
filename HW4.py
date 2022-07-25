@@ -116,7 +116,8 @@ def ad_ex():
     digits_2nd = []
     digits_sum = []
 
-
+    symbols = ["0", "1", "2", "3", "4", "5",
+                "6", "7", "8", "9", "-"]
 
 
     pol_File1 = open("Py_seminars\HW4_File_1.txt", "r")
@@ -133,26 +134,38 @@ def ad_ex():
     count = 0
     for i in range(0,len(string1)):
         if string1[i] == "=" : break
-        if string1[i] == "+" or string1[i] == " ":
+        if string1[i] == "+":
             digits_1st.append("")
+            count += 1
+        elif string1[i] == "-":
+            digits_1st.append("-")
             count += 1
         else:
             digits_1st[count] += string1[i]
 
     print (digits_1st)
 
-    # for j in digits_1st:
-    #     for k in range(len(j)):
-            
+    for j in digits_1st:
+        value = ""
+        number = ""
+        for k in range(len(j)):
+            if j[k]== " " or j[k]== "" : continue
+            if j[k]!= "*" and j[k]!= "x" and j[k]!= "^"  and not merker1:
+                value += j[k]
+            elif j[k] == "^": merker1
+            elif merker1: number += j[k]
 
-        
+        for q in number:
+            if i not in symbols:
+                value.replace(q, "")
+        for w in value:
+            if i not in symbols:
+                number.replace(w, "")
 
-
-        
-
-
-
-
+        print(value)
+        print(number)
+                
+        # digits_1st[int(number)] = int(value)
 
 
 ad_ex()
