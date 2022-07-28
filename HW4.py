@@ -159,7 +159,8 @@ def ad_ex(pol_File):
         if "^" not in j: number = "1"
         if "x" not in j: number = "0"    
         
-        if value:
+        if j:
+            
             digits_sum1[int(number)] = int(value)
         
     print(digits_sum1)
@@ -167,9 +168,9 @@ def ad_ex(pol_File):
 
 
 
-# pol_File1 = open("Py_seminars\HW4_File_1.txt", "r")
-# polinom1 = ad_ex(pol_File1)
-# pol_File1.close
+pol_File1 = open("Py_seminars\HW4_File_1.txt", "r")
+polinom1 = ad_ex(pol_File1)
+pol_File1.close
 
 pol_File2 = open("Py_seminars\HW4_File_2.txt", "r")
 polinom2 = ad_ex(pol_File2)
