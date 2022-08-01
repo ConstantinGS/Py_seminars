@@ -55,17 +55,57 @@ def ex_2_find_farthest_orbit_var2():
 
 
 
+def ex_3_param_pam_pam(poem):
+    vowels = ["а", "и", "у", "е", "э", "ы", "о", "ю", "я"]
+    phrases = "".join(list(filter(lambda x: x in vowels or x == " ", poem)))
+    list_syllables = phrases.split(" ")
+    merker = False
+    for i in range(len(list_syllables)-1):
+        if list_syllables[i] != list_syllables[i+1]:
+            merker = True
+            break
+    if merker:    
+        print("Пам парам")
+    else:
+        print("Парам пам-пам")
+
+
+#ex_3_param_pam_pam("пара-ра-рам рам-пам-папам па-ра-па-дам")
 
 
 
+def ex_4_same_by(characteristic, objects):
+    if len(objects)<=1 : return True
+
+    temp = characteristic(objects[0])
+    result = True
+
+    for i in objects:
+        if temp != characteristic(i):
+            result = False
+            break
+    return result
+
+# values = [2, 4, 6]
+# if ex_4_same_by(lambda x: x%2, values):
+#     print("same")
+# else: print ('different')
 
 
+def ex5_print_operation_table(operation, num_rows=9, num_colomns=9):
+    rows = [i for i in range(1, num_rows+1)]
+    for i in range(1, num_colomns+1):
+        colomns = [i for y in range(1, num_colomns+1)]
+        table = list(map(operation, rows, colomns))
+        print(*table)
 
-
-
-
-
-
+a = 5
+b = 5
+ex5_print_operation_table(lambda x,y: x*y, a, b)
 
 end_pr = time.time()
 print(end_pr-start)
+
+
+
+
