@@ -22,6 +22,14 @@ def print_childrens(second_name):
     child = [i for  i in database[db_id["Childrens"]] if id == i[1]]
     print(*[" ".join(i[2:4]) + '\n' for i in child] )
 
+# Найти номер телефона родителя
+
+def print_childrens(second_name):
+    id = [i[0] for i in  database[db_id["Parents"]] if second_name in i][0]
+    number = [i for  i in database[db_id["Contacts"]] if id == i[0]]
+    print(second_name)
+    print(*[i[1] + '\n' for i in number] )
+
 # Вывести класс, который учится в кабинете N
 
 def class_spisok(classroom):
@@ -44,13 +52,20 @@ def class_marks(number_class):
     for i in range(len(spisok_students)):
         print( spisok_students[i] + "      " + "      ".join(spisok_marks[i].split(" ")) + " \n" )
 
-# Найти номер телефона родителя
+# Средняя оценка класса по предметам
 
-def print_childrens(second_name):
-    id = [i[0] for i in  database[db_id["Parents"]] if second_name in i][0]
-    number = [i for  i in database[db_id["Contacts"]] if id == i[0]]
-    print(second_name)
-    print(*[i[1] + '\n' for i in number] )
+def class_raiting(number_class):
+    print(f" Средняя оценка класса {number_class}")
+    print("math chemical literature")
+    raiting = [1, 1, 1]
+    students = [i for  i in database[db_id["Childrens"]] if number_class == i[5]]
+    marks = [i for  i in database[db_id["Marks"]] if i[0] in [i[0] for i in students]]
+    for i in marks:
+        for j in range(1, len(i)):  raiting[j-1] *= float(i[j])
+    for i in raiting:
+        print(f"  {i}   ", end="")
+   
+ 
 
 
 
@@ -64,7 +79,8 @@ reading_file_to_dict(5)
 print_childrens('Ivanov')
 class_spisok("42")
 class_marks("7b")
-print_childrens('Ivanov')
+class_raiting("7b")
+
 
    
 
