@@ -1,0 +1,3 @@
+id_par;number_tel;address
+1;555-333;pr Mira
+2;666-111;ul Lenina

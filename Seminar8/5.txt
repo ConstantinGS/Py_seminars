@@ -1,0 +1,4 @@
+id;number_class;number_classroom;classroom_teacher
+1;7a;21;Petrova
+2;7b;24;Alexandrova
+3;7c;42;Vasilyeva

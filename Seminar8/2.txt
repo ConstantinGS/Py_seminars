@@ -1,0 +1,5 @@
+id;par_id;name;surname;bd;class
+1;1;Egor;Ivanov;01.08.2022;7c
+2;1;Misha;Ivanov;02.08.2022;7b
+3;2;Misha;Semenov;12.08.2022;7c
+4;2;Igor;Semenov;01.08.2022;7b
