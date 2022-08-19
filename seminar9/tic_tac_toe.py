@@ -1,6 +1,6 @@
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, message
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackContext, CallbackQueryHandler
-
+import random
 bot = Bot(token = "5453828110:AAG3k4YA1OpkJ9d3yYep38MqRGqth_HAdbo")
 updater = Updater(token = "5453828110:AAG3k4YA1OpkJ9d3yYep38MqRGqth_HAdbo") # Апдэйтер это класс опрашивающий сервер на предмет сообщений
 dispatcher = updater.dispatcher # экзэмпляр объекта регистрирует обработчики,
@@ -12,6 +12,7 @@ STEP2= 2
 STEP3 = 3
 OVER = 4
 counter = 0
+move = 1
 
 field_ttt = [[" * ", " * ", " * " ],    
              [" * ", " * ", " * " ],
@@ -20,16 +21,52 @@ field = [[InlineKeyboardButton(field_ttt[0][0], callback_data='1'), InlineKeyboa
          [InlineKeyboardButton(field_ttt[1][0], callback_data= '4'), InlineKeyboardButton(field_ttt[1][1], callback_data='5'), InlineKeyboardButton(field_ttt[1][2], callback_data='6')],
          [InlineKeyboardButton(field_ttt[2][0], callback_data='7'), InlineKeyboardButton(field_ttt[2][1], callback_data='8'), InlineKeyboardButton(field_ttt[2][2], callback_data='9')]]
 def counter_field(num, field):
- 
-    if num == "1": field[0][0] = "X"
-    elif num == "2": field[0][1] = "X"
-    elif num == "3": field[0][2] = "X"
-    elif num == "4": field[1][0] = "X"
-    elif num == "5": field[1][1] = "X"
-    elif num == "6": field[1][2] = "X"
-    elif num == "7": field[2][0] = "X"
-    elif num == "8": field[2][1] = "X"
-    elif num == "9": field[2][2] = "X"
+    global counter
+    global move
+
+    if move:
+        
+        if num == "1" and field[0][0] == " * " : field[0][0] = "X"
+        elif num == "2" and field[0][1] == " * ": field[0][1] = "X"
+        elif num == "3" and field[0][2] == " * ": field[0][2] = "X"
+        elif num == "4" and field[1][0] == " * ": field[1][0] = "X"
+        elif num == "5" and field[1][1] == " * ": field[1][1] = "X"
+        elif num == "6" and field[1][2] == " * ": field[1][2] = "X"
+        elif num == "7" and field[2][0] == " * ": field[2][0] = "X"
+        elif num == "8" and field[2][1] == " * ": field[2][1] = "X"
+        elif num == "9" and field[2][2] == " * ": field[2][2] = "X"
+
+        if ((field[0] == ["X", "X", "X" ] or field[1] == ["X", "X", "X" ] or field[2] == ["X", "X", "X" ]) or
+            (field[0][0] == 'X' and field[0][0] == field[1][0] and  field[0][0] == field[2][0]) or
+            (field[0][1] == 'X' and field[0][1] == field[1][1] and  field[0][1] == field[2][1]) or
+            (field[0][2] == 'X' and field[0][2] == field[1][2] and  field[0][2] == field[2][2]) or
+            (field[0][0] == 'X' and field[0][0] == field[1][1] and  field[0][0] == field[2][2]) or
+            (field[1][1] == 'X' and field[2][0] == field[1][1] and  field[2][0] == field[0][2])): 
+            counter = 9
+            return field
+
+        counter +=1
+        move = 0
+
+    if move == 0:
+        temp1 = random.randint(0,2)
+        temp2 = random.randint(0,2)
+                
+        while field[temp1][temp2] != " * ":
+            temp1 = random.randint(0,2)
+            temp2 = random.randint(0,2)
+
+        field[temp1][temp2] = "0"
+        if ((field[0] == ["0", "0", "0" ] or field[1] == ["0", "0", "0" ] or field[2] == ["0", "0", "0" ]) or
+            (field[0][0] == '0' and field[0][0] == field[1][0] and  field[0][0] == field[2][0]) or
+            (field[0][1] == '0' and field[0][1] == field[1][1] and  field[0][1] == field[2][1]) or
+            (field[0][2] == '0' and field[0][2] == field[1][2] and  field[0][2] == field[2][2]) or
+            (field[0][0] == 'X' and field[0][0] == field[1][1] and  field[0][0] == field[2][2]) or
+            (field[1][1] == 'X' and field[2][0] == field[1][2] and  field[2][0] == field[0][2])): 
+            counter = 9
+            return field
+        counter +=1
+        move = 1
 
     return field
 
@@ -42,7 +79,7 @@ def start(update, context):
 def operation(update, context):
     global field_ttt
     global field
-    global counter
+    
     query = update.callback_query
     variant = query.data
     query.answer()
@@ -52,9 +89,12 @@ def operation(update, context):
             [InlineKeyboardButton(field_ttt[2][0], callback_data='7'), InlineKeyboardButton(field_ttt[2][1], callback_data='8'), InlineKeyboardButton(field_ttt[2][2], callback_data='9')]]
     context.bot.send_message(update.effective_chat.id, field_ttt)
     context.bot.send_message(update.effective_chat.id, "Поле", reply_markup = InlineKeyboardMarkup(field))
-    counter +=1
+    
     if counter <9:return STEP2
-    context.bot.send_message(update.effective_chat.id, "Игра окончена") 
+    if move:
+        context.bot.send_message(update.effective_chat.id, "Вы выиграли")
+    else:
+        context.bot.send_message(update.effective_chat.id, "Вы проиграли")  
        
 
 
